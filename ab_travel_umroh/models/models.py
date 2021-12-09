@@ -18,5 +18,9 @@ class TravelPackage(models.Model):
     
     tanggal_berangkat = fields.Date(string="Tanggal Berangkat")
     tanggal_kembali = fields.Date(string="Tanggal Kembali")
-    sale = fields.Many2one('product_id', string="Produk", tracking=True)
+    sale = fields.Many2one('product.product', string="Sale", tracking=True)
+    package = fields.Many2one('product.product', string="Package", tracking=True)
+    quota = fields.Char(string="Quota")
+    remaining_quota = fields.Char(string="Remaining Quota")
+    quota_progress = fields.Char(string="Quota Progress")
 
