@@ -5,8 +5,8 @@
             <field name="model">paket.perjalanan</field>
             <field name="arch" type="xml">
                 <tree string="">
-                    <field name="tanggal_berangkat"/>
-                    <field name="tanggal_kembali"/>
+                    <field name="tanggal_berangkat" required="True"/>
+                    <field name="tanggal_kembali" required="True"/>
                     <field name="product_id"/>
                     <field name="bom_id"/>
                     <field name="quota" widget="progressbar" optional="hide"/>
@@ -23,8 +23,8 @@
                 <form string="">
                     <sheet>
                         <group string ="Informasi Jadwal" col="4">
-                            <field name="tanggal_berangkat"/>
-                            <field name="tanggal_kembali"/>
+                            <field name="tanggal_berangkat" required="True"/>
+                            <field name="tanggal_kembali" required="True"/>
                         </group>
                         <group string ="Produk" col="4">
                             <field name="product_id"/>
@@ -53,8 +53,9 @@
                                 </group>
                             </page>
                             <page string="HPP Lines">
-                                <group>
-                                </group>
+                                <!-- <group>
+                                    <field name="remaining_quota"/>
+                                </group> -->
                             </page>
                         </notebook>
                     </sheet>
@@ -63,7 +64,7 @@
         </record>
 
         <record id="travel_package_action" model="ir.actions.act_window">
-            <field name="name">paket.perjalanan</field>
+            <field name="name">Travel Package</field>
             <field name="res_model">paket.perjalanan</field>
             <field name="view_mode">tree,kanban,form</field>
         </record>
