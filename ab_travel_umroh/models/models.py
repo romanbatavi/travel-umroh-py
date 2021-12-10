@@ -23,4 +23,5 @@ class TravelPackage(models.Model):
     quota = fields.Char(string="Quota")
     remaining_quota = fields.Char(string="Remaining Quota")
     quota_progress = fields.Char(string="Quota Progress")
-
+    
+    # hpp_lines = fields.One2many('sale.order.line', 'mrp_bom', string='Order Lines')

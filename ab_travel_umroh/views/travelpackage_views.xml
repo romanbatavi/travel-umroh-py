@@ -61,10 +61,9 @@
                                     <field name="package"/>
                                 </group>
                             </page>
-                            <page string="HPP">
+                            <page string="HPP Lines">
                                 <group>
-                                    <field name="sale"/>
-                                    <field name="package"/>
+                                    <!-- <field name="hpp_lines" nolabel="1"/> -->
                                 </group>
                             </page>
                         </notebook>
