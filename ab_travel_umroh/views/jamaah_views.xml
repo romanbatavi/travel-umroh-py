@@ -5,45 +5,47 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='vat']" position="after">
-                    <h2 style="margin-top:100px;">Addictional Information</h2>
-                    <field name="ktp"/>
-                    <field name="ayah"/>
-                    <field name="pekerjaan_ayah"/>
-                    <field name="tempat_lahir"/>
-                    <field name="pendidikan"/>
-                    <field name="status_hubungan"/>
+                <xpath expr="//form/sheet/group" position="after">
+                    <group string="Addictional Item" col="4">
+                        <field name="ktp"/>
+                        <field name="ayah"/>
+                        <field name="pekerjaan_ayah"/>
+                        <field name="tempat_lahir"/>
+                        <field name="pendidikan"/>
+                        <field name="status_hubungan"/>
+                        <field name="jenis_kelamin"/>
+                        <field name="ibu"/>
+                        <field name="pekerjaan_ibu"/>
+                        <field name="tanggal_lahir"/>
+                        <field name="golongan_darah"/>
+                        <field name="baju"/>
+                    </group>
+
+                    <group string="Passpor" col="4">
+                        <field name="passpor"/>
+                        <field name="tanggal_akpass"/>
+                        <field name="imigrasi"/>
+                        <field name="nama_passpor"/>
+                        <field name="tanggal_habpass"/>
+                    </group>
+                    <group string ="Berkas" col="4">
+                        <field name="gambar_bknikah" widget="image"/>
+                        <field name="gambar_kk" widget="image"/>
+                        <field name="gambar_pass" widget="image"/>
+                        <field name="gambar_ktp" widget="image"/>
+                    </group>
                 </xpath>
-                <xpath expr="//field[@name='category_id']" position="after">
-                    <h2 style="margin-top:100px; color:primary"></h2>
-                    <field name="jenis_kelamin"/>
-                    <field name="ibu"/>
-                    <field name="pekerjaan_ibu"/>
-                    <field name="tanggal_lahir"/>
-                    <field name="golongan_darah"/>
-                    <field name="baju"/>
-                </xpath>
-                <xpath expr="//field[@name='status_hubungan']" position="after">
-                    <h2 style="margin-top:100px;">Passpor Information</h2>
-                    <field name="passpor"/>
-                    <field name="tanggal_akpass"/>
-                    <field name="imigrasi"/>
-                </xpath>
-                <xpath expr="//field[@name='baju']" position="after">
-                    <h2 style="margin-top:131px;"></h2>
-                    <field name="nama_passpor"/>
-                    <field name="tanggal_habpass"/>
-                </xpath>
-                <xpath expr="//field[@name='imigrasi']" position="after">
+
+
+                <!-- <xpath expr="//field[@name='imigrasi']" position="after">
                     <h2 style="margin-top:130px;">Scan Document</h2>
-                    <field name="gambar_pass" widget="image"/>
-                    <field name="gambar_ktp" widget="image"/>
+                    
                 </xpath>
                 <xpath expr="//field[@name='tanggal_habpass']" position="after">
                     <h2 style="margin-top:200px;"></h2>
                     <field name="gambar_bknikah" widget="image"/>
                     <field name="gambar_kk" widget="image"/>
-                </xpath>
+                </xpath> -->
                 <xpath expr="//field[@name='property_stock_supplier']" position="after">
                     <h2 style="margin-top:80px;">Travel</h2>
                     <field name="airlines" attrs="{'readonly': [('airlines', '=', True)]}"/>
