@@ -34,8 +34,6 @@
         'views/customerinvoice_views.xml',
         'views/salesorder_views.xml',
         'views/menuitem_views.xml',
-        'views/views.xml',
-        'views/templates.xml',
         
     ],
     # only loaded in demonstration mode
