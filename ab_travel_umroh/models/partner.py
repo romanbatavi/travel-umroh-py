@@ -28,7 +28,7 @@ class Partner(models.Model):
         string='Jenis Kelamin', help='Gender')
     ibu = fields.Char(string='Nama Ibu')
     pekerjaan_ibu = fields.Char(string='Pekerjaan Ibu')
-    tanggal_lahir = fields.Date(string='Tanggal_Lahir')
+    tanggal_lahir = fields.Date(string='Tanggal Lahir')
     golongan_darah = fields.Selection([
         ('a', 'A'), 
         ('b', 'B'), 

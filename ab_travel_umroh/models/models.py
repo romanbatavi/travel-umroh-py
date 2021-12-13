@@ -1,17 +1,4 @@
-from odoo import api, fields, models
- 
-class UmrohTravel(models.Model):
-    _name = 'umroh.travel'
-    _description = 'Umroh Travel'
-     
-    name = fields.Char(string='Judul', required=True)
-    description = fields.Text(string='Keterangan')
-
-    @api.depends('value')
-    def _value_pc(self):
-        for record in self:
-            record.value2 = float(record.value) / 100
-            
+from odoo import api, fields, models         
 class PaketPerjalanan(models.Model):
     _name = 'paket.perjalanan'
     _description = 'Travel Package'
@@ -23,5 +10,3 @@ class PaketPerjalanan(models.Model):
     quota = fields.Char(string="Quota")
     remaining_quota = fields.Char(string="Remaining Quota")
     quota_progress = fields.Char(string="Quota Progress")
-
-    

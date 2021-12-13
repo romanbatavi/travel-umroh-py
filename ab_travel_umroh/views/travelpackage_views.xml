@@ -53,9 +53,8 @@
                                 </group>
                             </page>
                             <page string="HPP Lines">
-                                <!-- <group>
-                                    <field name="remaining_quota"/>
-                                </group> -->
+                                <group>
+                                </group>
                             </page>
                         </notebook>
                     </sheet>
