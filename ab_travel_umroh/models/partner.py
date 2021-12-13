@@ -59,6 +59,7 @@ class Partner(models.Model):
     gambar_bukuk_nikah = fields.Image(string="Scan Buku Nikah")
     gambar_kartu_keluarga = fields.Image(string="Scan Kartu Keluarga")
     
+    #LOGIC TEXTBOOK
     airlines = fields.Boolean(string='Airlines')
     hotels = fields.Boolean(string='Hotel')
     
