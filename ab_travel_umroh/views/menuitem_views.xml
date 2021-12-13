@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <!-- Membuat Menu Dashboard -->
-        <menuitem id="menu_dashboard_ab_travel_umroh" name="UMROH TRAVEL" web_icon="ab_travel_umroh,static/description/icon.png"/>
+        <menuitem id="menu_dashboard_ab_travel_umroh" name="Travel Umroh" web_icon="ab_travel_umroh,static/description/icon.png"/>
 
         <!-- Membuat Menu Bar Training -->
         <menuitem id="menu_bar_master_data" name="Master Data" parent="menu_dashboard_ab_travel_umroh"/>

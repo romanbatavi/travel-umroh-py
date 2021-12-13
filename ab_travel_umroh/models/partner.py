@@ -35,7 +35,7 @@ class Partner(models.Model):
         ('ab', 'AB'), 
         ('o', 'O')], 
         string='Golongan Darah', help='Golongan Darah')
-    baju = fields.Selection([
+    ukuran_baju = fields.Selection([
         ('xs', 'XS'), 
         ('s', 'S'), 
         ('m', 'M'), 
@@ -48,16 +48,16 @@ class Partner(models.Model):
     
     # PASSPOR INFORMATION
     passpor = fields.Char(string='No.Passpor')
-    tanggal_akpass = fields.Date(string='Tanggal Berlaku')
+    tanggal_berlaku = fields.Date(string='Tanggal Berlaku')
     imigrasi = fields.Char(string='Imigrasi')
     nama_passpor = fields.Char(string='Nama Passpor')
-    tanggal_habpass = fields.Date(string='Tanggal Habis')
+    tanggal_habis = fields.Date(string='Tanggal Habis')
     
     # SCAN DOCUMENT
-    gambar_pass = fields.Image(string="Scan Passpor")
+    gambar_passpor = fields.Image(string="Scan Passpor")
     gambar_ktp = fields.Image(string="Scan KTP")
-    gambar_bknikah = fields.Image(string="Scan Buku Nikah")
-    gambar_kk = fields.Image(string="Scan Kartu Keluarga")
+    gambar_bukuk_nikah = fields.Image(string="Scan Buku Nikah")
+    gambar_kartu_keluarga = fields.Image(string="Scan Kartu Keluarga")
     
     airlines = fields.Boolean(string='Airlines')
     hotels = fields.Boolean(string='Hotel')

@@ -18,25 +18,25 @@
                         <field name="pendidikan"/>
                         <field name="golongan_darah"/>
                         <field name="status_hubungan"/>
-                        <field name="baju"/>
+                        <field name="ukuran_baju"/>
                     </group>
 
                     <group string="Passpor" col="4">
                         <field name="passpor"/>
                         <field name="nama_passpor"/>
-                        <field name="tanggal_akpass"/>
-                        <field name="tanggal_habpass"/>
+                        <field name="tanggal_berlaku"/>
+                        <field name="tanggal_habis"/>
                         <field name="imigrasi"/>
                     </group>
                     <group string="Berkas" col="4">
-                        <field name="gambar_pass" widget="image"/>
-                        <field name="gambar_bknikah" widget="image"/>
+                        <field name="gambar_passpor" widget="image"/>
+                        <field name="gambar_bukuk_nikah" widget="image"/>
                         <field name="gambar_ktp" widget="image"/>
-                        <field name="gambar_kk" widget="image"/>
+                        <field name="gambar_kartu_keluarga" widget="image"/>
                     </group>
                 </xpath>
 
-                <xpath expr="//field[@name='industry_id']" position="after">
+                <xpath expr="//form/sheet/notebook/page/group" position="after">
                     <group string="Travel">
                         <field name="airlines" attrs="{'readonly': [('airlines', '=', True)]}"/>
                         <field name="hotels" attrs="{'readonly': [('hotels', '=', True)]}"/>

@@ -26,13 +26,13 @@
     'data': [
         # 'security/ir.model.access.csv',
         'views/produk_views.xml',
-        'views/paketproduk_views.xml',
+        'views/paket_produk_views.xml',
         'views/jamaah_views.xml',
         'views/airlines_views.xml',
         'views/hotels_views.xml',
-        'views/travelpackage_views.xml',
-        'views/customerinvoice_views.xml',
-        'views/salesorder_views.xml',
+        'views/travel_package_views.xml',
+        'views/customer_invoice_views.xml',
+        'views/sales_order_views.xml',
         'views/menuitem_views.xml',
         
     ],

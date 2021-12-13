@@ -7,7 +7,7 @@
             <field name="view_mode">kanban,tree,form</field>
             <field name="help" type="html">
                 <p name="o_view_nocontent_smiling_face">
-                    UMROH TRAVEL KOSONG
+                    Oops... Travel Umroh Kosong
                 </p>
             </field>
         </record>
