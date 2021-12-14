@@ -9,12 +9,14 @@ class PaketPerjalanan(models.Model):
     product_id = fields.Many2one('product.product', string="Sale", tracking=True)
     bom_id = fields.Many2one('product.product', string="Package", tracking=True)
     quota = fields.Char(string="Quota")
-    remaining_quota = fields.Char(string="Remaining Quota")
+    remaining_quota = fields.Char(string="Remaining Quota", related='quota')
     quota_progress = fields.Char(string="Quota Progress")
     
     hotels_line = fields.One2many('hotel.line', 'hotel_id', string='Hotel Lines')
     
     airlines_line = fields.One2many('airline.lines', 'airline_id', string='Airline Lines')
+    
+    hpp_line = fields.One2many('hpp.line', 'hpp_id', string='HPP Lines')
     
 class HotelLines(models.Model):
     _name = 'hotel.line'
@@ -35,3 +37,15 @@ class AirlineLines(models.Model):
     tanggal_berangkat = fields.Date(string='Tanggal Keberangkatan')
     kota_asal = fields.Char(string='Kota Asal')
     kota_tujuan = fields.Char(string='Kota Tujuan')
+    
+class HppLines(models.Model):
+    _name = 'hpp.line'
+    _description = 'HPP Lines'
+    
+    hpp_id = fields.Many2one('paket.perjalanan', string='HPP ID')
+    barang_id = fields.Many2one('mrp.bom', string='Barang')
+    hpp_barang = fields.Char(string='Barang')
+    hpp_qty = fields.Char(string='Quantity')
+    hpp_unit = fields.Char(string='Unit')
+    hpp_price = fields.Char(string='Price')
+    hpp_total = fields.Char(string='Total')
