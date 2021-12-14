@@ -13,6 +13,7 @@ class PaketPerjalanan(models.Model):
     quota_progress = fields.Char(string="Quota Progress" ,compute="quota_progress")
     
     hotel_line = fields.One2many('hotel.line', 'hotel_id', string='Hotel Lines')
+    airlines_line = fields.One2many('airline.lines', 'airline_id', string='Airline Lines')
     
 class HotelLines(models.Model):
     _name = 'hotel.line'
