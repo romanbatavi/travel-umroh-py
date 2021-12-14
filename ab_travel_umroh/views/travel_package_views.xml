@@ -45,7 +45,6 @@
                                             <field name="tanggal_masuk" />
                                             <field name="tanggal_keluar" />
                                             <field name="nama_kota" />
-                                            <!-- <field name="hotel_id" /> -->
                                         </tree>
                                         <form string="Hotel_String">
                                             <group>
@@ -53,7 +52,6 @@
                                                 <field name="tanggal_masuk" />
                                                 <field name="tanggal_keluar" />
                                                 <field name="nama_kota" />
-                                                <!-- <field name="hotel_id" /> -->
                                             </group>
                                         </form>
                                     </field>

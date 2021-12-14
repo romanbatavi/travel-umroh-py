@@ -9,17 +9,18 @@ class PaketPerjalanan(models.Model):
     product_id = fields.Many2one('product.product', string="Sale", tracking=True)
     bom_id = fields.Many2one('product.product', string="Package", tracking=True)
     quota = fields.Char(string="Quota")
-    remaining_quota = fields.Char(string="Remaining Quota", compute="remaining_quota")
-    quota_progress = fields.Char(string="Quota Progress" ,compute="quota_progress")
+    remaining_quota = fields.Char(string="Remaining Quota")
+    quota_progress = fields.Char(string="Quota Progress")
     
     hotel_line = fields.One2many('hotel.line', 'hotel_id', string='Hotel Lines')
+    
     airlines_line = fields.One2many('airline.lines', 'airline_id', string='Airline Lines')
     
 class HotelLines(models.Model):
     _name = 'hotel.line'
     _description = 'Hotel Lines'
     
-    partner_id = fields.Many2one('res.partner', string='Nama Hotel', domain=[('hotels', '=', True)])
+    partner_id = fields.Many2one('res.partner', string='Nama Hotel')
     hotel_id = fields.Many2one('paket.perjalanan', string='Hotel Line')
     nama_kota = fields.Char(string='Nama Kota', related='partner_id.city', tracking=True,)
     tanggal_masuk = fields.Date(string='Tanggal Masuk')
@@ -29,7 +30,7 @@ class AirlineLines(models.Model):
     _name = 'airline.lines'
     _description = 'Airline Lines'
     
-    airlines_id = fields.Many2one('res.partner', String='Nama Pesawat', domain=[('airlines', '=', True)])
+    airlines_id = fields.Many2one('res.partner', string='Nama Pesawat')
     airline_id = fields.Many2one('paket.perjalanan', String='Airlines Line')
     tanggal_berangkat = fields.Date(string='Tanggal Keberangkatan')
     kota_asal = fields.Char(string='Kota Asal')
