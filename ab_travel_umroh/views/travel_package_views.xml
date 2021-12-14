@@ -15,7 +15,7 @@
             </field>
         </record>
 
-        <!-- Membuat View Form Attendee -->
+        <!-- TRAVEL PACKAGE -->
         <record id="paket_perjalanan_view_form" model="ir.ui.view">
             <field name="name">paket.perjalanan.form</field>
             <field name="model">paket.perjalanan</field>
@@ -38,17 +38,17 @@
                         <notebook>
                             <page string="Hotel Lines">
                                 <!-- NOTEBOOK HOTEL -->
-                                <group>
-                                    <field name="hotel_line" mode="tree,kanban" nolabel="1">
+                                <group col="4">
+                                    <field name="hotels_line" mode="tree,kanban" nolabel="1">
                                         <tree string = "Hotel Lines" editable="top">
-                                            <field name="partner_id" />
+                                            <field name="hotels_id" />
                                             <field name="tanggal_masuk" />
                                             <field name="tanggal_keluar" />
                                             <field name="nama_kota" />
                                         </tree>
-                                        <form string="Hotel_String">
-                                            <group>
-                                                <field name="partner_id" />
+                                        <form string="Hotels_String">
+                                            <group col="4">
+                                                <field name="hotels_id" />
                                                 <field name="tanggal_masuk" />
                                                 <field name="tanggal_keluar" />
                                                 <field name="nama_kota" />
@@ -58,7 +58,7 @@
                                 </group>
                             </page>
                             <page string="Airline Lines">
-                                <!-- NOTEBOOK HOTEL -->
+                                <!-- NOTEBOOK AIRLINE -->
                                 <group>
                                     <field name="airlines_line" mode="tree,kanban" nolabel="1">
                                         <tree string = "Airline Lines" editable="top">
