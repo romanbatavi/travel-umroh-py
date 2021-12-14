@@ -35,25 +35,26 @@
                             <field name="quota_progress" widget="progressbar"/>
                             <field name="remaining_quota"/>
                         </group>
-                        <notebook position="inside">
+                        <notebook>
                             <page string="Hotel Lines">
+                                <!-- NOTEBOOK HOTEL -->
                                 <group>
-                                </group>
-                            </page>
-                            <page string="Airplane Lines">
-                                <group>
-                                </group>
-                            </page>
-                            <page string="Schedule Lines">
-                                <group>
-                                </group>
-                            </page>
-                            <page string="Manifest">
-                                <group>
-                                </group>
-                            </page>
-                            <page string="HPP Lines">
-                                <group>
+                                    <field name="hotel_line" mode="tree,kanban" nolabel="1">
+                                        <tree string = "Hotel Lines" editable="top">
+                                            <field name="partner_id" />
+                                            <field name="tanggal_masuk" />
+                                            <field name="tanggal_keluar" />
+                                            <field name="nama_kota" />
+                                        </tree>
+                                        <form string="Hotel_String">
+                                            <group>
+                                                <field name="partner_id" />
+                                                <field name="tanggal_masuk" />
+                                                <field name="tanggal_keluar" />
+                                                <field name="nama_kota" />
+                                            </group>
+                                        </form>
+                                    </field>
                                 </group>
                             </page>
                         </notebook>
