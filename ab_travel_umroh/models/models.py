@@ -18,6 +18,26 @@ class PaketPerjalanan(models.Model):
     
     hpp_line = fields.One2many('hpp.line', 'hpp_id', string='HPP Lines')
     
+    state = fields.Selection([('draft', 'Draft'), ('confirm', 'Confirm'), ('cancel', 'Cancelled'), ('done', 'Done')], string='Status', readonly=True, default='draft')
+    
+    def action_confirm(self):
+        self.write({'state': 'confirm'})
+      
+    def action_done(self):
+        self.write({'state': 'done'})
+      
+    def action_draft(self):
+        self.write({'state': 'draft'})
+        
+    def action_cancel(self):
+        self.write({'state': 'cancel'})
+        
+    # @api.onchange('bom_id')
+    # def _onchange_bom_id(self):
+    #     print('===============================================================',self.bom_id)
+        # for hote in self.hotels_line:
+        #     print('===============================================================',hote.hotels_id.city)
+    
 class HotelLines(models.Model):
     _name = 'hotel.line'
     _description = 'Hotel Lines'
@@ -46,6 +66,6 @@ class HppLines(models.Model):
     barang_id = fields.Many2one('mrp.bom', string='Barang')
     hpp_barang = fields.Char(string='Barang')
     hpp_qty = fields.Char(string='Quantity')
-    hpp_unit = fields.Char(string='Unit')
-    hpp_price = fields.Char(string='Price')
-    hpp_total = fields.Char(string='Total')
+    hpp_unit = fields.Char(string='Unit(s)')
+    hpp_price = fields.Char(string='Unit Price')
+    hpp_total = fields.Char(string='SubTotal')

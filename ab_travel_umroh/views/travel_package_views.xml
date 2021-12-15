@@ -21,6 +21,13 @@
             <field name="model">paket.perjalanan</field>
             <field name="arch" type="xml">
                 <form string="">
+                    <header>
+                        <button id="button_draft" name="action_draft" string="Draft" states="done,confirm,cancel" class="btn-primary" type="object"/>
+                        <button id="button_confirm" name="action_confirm" string="Confirm" states="draft,done,cancel" class="btn-primary" type="object"/>
+                        <button id="button_done" name="action_done" string="Done" states="draft,confirm,cancel" class="btn-primary" type="object"/>
+                        <button id="button_cancel" name="action_cancel" string="Cancel" states="draft,done,confirm" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done" />
+                    </header>
                     <sheet>
                         <group string ="Informasi Jadwal" col="4">
                             <field name="tanggal_berangkat" required="True"/>
@@ -57,6 +64,7 @@
                                     </field>
                                 </group>
                             </page>
+
                             <page string="Airline Lines">
                                 <!-- NOTEBOOK AIRLINE -->
                                 <group>
@@ -73,6 +81,30 @@
                                                 <field name="tanggal_berangkat" />
                                                 <field name="kota_asal" />
                                                 <field name="kota_tujuan" />
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+                            </page>
+
+                            <page string="HPP Lines">
+                                <!-- NOTEBOOK HPP -->
+                                <group>
+                                    <field name="hpp_line" mode="tree,kanban" nolabel="1">
+                                        <tree string = "HPP Lines" editable="top">
+                                            <field name="barang_id" />
+                                            <field name="hpp_qty" />
+                                            <field name="hpp_unit" />
+                                            <field name="hpp_price" />
+                                            <field name="hpp_total" />
+                                        </tree>
+                                        <form string="Airline_String">
+                                            <group>
+                                                <field name="barang_id" />
+                                                <field name="hpp_qty" />
+                                                <field name="hpp_unit" />
+                                                <field name="hpp_price" />
+                                                <field name="hpp_total" />
                                             </group>
                                         </form>
                                     </field>
