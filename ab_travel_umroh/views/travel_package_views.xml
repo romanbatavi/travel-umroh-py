@@ -29,6 +29,11 @@
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done" />
                     </header>
                     <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="ref"/>
+                            </h1>
+                        </div>
                         <group string ="Informasi Jadwal" col="4">
                             <field name="tanggal_berangkat" required="True"/>
                             <field name="tanggal_kembali" required="True"/>

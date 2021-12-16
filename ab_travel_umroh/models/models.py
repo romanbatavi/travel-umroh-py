@@ -13,14 +13,16 @@ class PaketPerjalanan(models.Model):
     quota_progress = fields.Char(string="Quota Progress")
     
     hotels_line = fields.One2many('hotel.line', 'hotel_id', string='Hotel Lines')
-    
-    airlines_line = fields.One2many('airline.line', 'airline_id', string='Airline Lines')
-    
-    hpp_line = fields.One2many('hpp.line', 'hpp_id', string='HPP Lines')
-    
+    airlines_line = fields.One2many('airline.line', 'airline_id', string='Airline Lines') 
+    hpp_line = fields.One2many('hpp.line', 'hpp_id', string='HPP Lines')  
     state = fields.Selection([('draft', 'Draft'), ('confirm', 'Confirm'), ('cancel', 'Cancelled'), ('done', 'Done')], string='Status', readonly=True, default='draft')
-    
     schedules_line = fields.One2many('schedule.line', 'schedule_id', string='Schedule Lines')
+    
+    ref = fields.Char(string='Referensi', readonly=True, default='-')
+    @api.model
+    def create(self, vals):
+        vals['ref'] = self.env['ir.sequence'].next_by_code('paket.perjalanan')
+        return super(PaketPerjalanan, self).create(vals)
     
     def action_confirm(self):
         self.write({'state': 'confirm'})

@@ -26,6 +26,7 @@
     'data': [
         # 'security/ir.model.access.csv',
         'views/produk_views.xml',
+        'views/sequence_data.xml',
         'views/paket_produk_views.xml',
         'views/jamaah_views.xml',
         'views/airlines_views.xml',
