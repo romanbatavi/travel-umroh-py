@@ -18,6 +18,8 @@ class PaketPerjalanan(models.Model):
     state = fields.Selection([('draft', 'Draft'), ('confirm', 'Confirm'), ('cancel', 'Cancelled'), ('done', 'Done')], string='Status', readonly=True, default='draft')
     schedules_line = fields.One2many('schedule.line', 'schedule_id', string='Schedule Lines')
     
+    
+    
     ref = fields.Char(string='Referensi', readonly=True, default='-')
     @api.model
     def create(self, vals):
@@ -82,4 +84,9 @@ class ScheduleLine(models.Model):
     # schedules_id = fields.Many2one('res.partner', string='Nama Hotel', domain=[('hotels', '=', True)])
     schedule_id = fields.Many2one('paket.perjalanan', string='Hotel Line')
     tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
+    
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+    
+    paket_perjalanan_id = fields.Many2one('paket.perjalanan', string='Paket Perjalanan')
     
