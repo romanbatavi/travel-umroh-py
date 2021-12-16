@@ -4,21 +4,23 @@ class PaketPerjalanan(models.Model):
     _name = 'paket.perjalanan'
     _description = 'Travel Package'
     
-    tanggal_berangkat = fields.Date(string="Tanggal Berangkat")
-    tanggal_kembali = fields.Date(string="Tanggal Kembali")
-    product_id = fields.Many2one('product.product', string="Sale", tracking=True)
-    bom_id = fields.Many2one('product.product', string="Package", tracking=True)
+    tanggal_berangkat = fields.Date(string="Tanggal Berangkat", required=True)
+    tanggal_kembali = fields.Date(string="Tanggal Kembali", required=True)
+    product_id = fields.Many2one('product.product', string="Sale", required=True, tracking=True)
+    bom_id = fields.Many2one('product.product', string="Package",required=True,  tracking=True)
     quota = fields.Char(string="Quota")
     remaining_quota = fields.Char(string="Remaining Quota", related='quota')
     quota_progress = fields.Char(string="Quota Progress")
     
     hotels_line = fields.One2many('hotel.line', 'hotel_id', string='Hotel Lines')
     
-    airlines_line = fields.One2many('airline.lines', 'airline_id', string='Airline Lines')
+    airlines_line = fields.One2many('airline.line', 'airline_id', string='Airline Lines')
     
     hpp_line = fields.One2many('hpp.line', 'hpp_id', string='HPP Lines')
     
     state = fields.Selection([('draft', 'Draft'), ('confirm', 'Confirm'), ('cancel', 'Cancelled'), ('done', 'Done')], string='Status', readonly=True, default='draft')
+    
+    schedules_line = fields.One2many('schedule.line', 'schedule_id', string='Schedule Lines')
     
     def action_confirm(self):
         self.write({'state': 'confirm'})
@@ -49,7 +51,7 @@ class HotelLines(models.Model):
     tanggal_keluar = fields.Date(string='Tanggal Keluar')
     
 class AirlineLines(models.Model):
-    _name = 'airline.lines'
+    _name = 'airline.line'
     _description = 'Airline Lines'
     
     airlines_id = fields.Many2one('res.partner', string='Nama Pesawat', domain=[('airlines', '=', True)])
@@ -68,4 +70,34 @@ class HppLines(models.Model):
     hpp_qty = fields.Char(string='Quantity')
     hpp_unit = fields.Char(string='Unit(s)')
     hpp_price = fields.Char(string='Unit Price')
-    hpp_total = fields.Char(string='SubTotal')
+    hpp_subtotal = fields.Char(string='SubTotal')
+    
+class ScheduleLine(models.Model):
+    _name = 'schedule.line'
+    _description = 'Schedule Lines'
+    
+    schedules_id = fields.Char(string='Nama Kegiatan')
+    # schedules_id = fields.Many2one('res.partner', string='Nama Hotel', domain=[('hotels', '=', True)])
+    schedule_id = fields.Many2one('paket.perjalanan', string='Hotel Line')
+    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
+    
+class ManifestLine(models.Model):
+    _name = 'manifest.line'
+    _description = 'Manifest Lines'
+    
+    # schedules_id = fields.Char(string='Nama Kegiatan')
+    schedules_id = fields.Many2one('res.partner', string='Nama Hotel', domain=[('hotels', '=', True)])
+    schedule_id = fields.Many2one('paket.perjalanan', string='Hotel Line')
+    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
+    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
+    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
+    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
+    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
+    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
+    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
+    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
+    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
+    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
+    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
+    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
+    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
