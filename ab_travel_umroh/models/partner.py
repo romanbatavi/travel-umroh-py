@@ -62,5 +62,3 @@ class Partner(models.Model):
     #LOGIC TEXTBOOK
     airlines = fields.Boolean(string='Airlines')
     hotels = fields.Boolean(string='Hotel')
-    
-    

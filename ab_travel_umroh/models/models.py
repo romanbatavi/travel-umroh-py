@@ -83,23 +83,3 @@ class ScheduleLine(models.Model):
     schedule_id = fields.Many2one('paket.perjalanan', string='Hotel Line')
     tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
     
-class ManifestLine(models.Model):
-    _name = 'manifest.line'
-    _description = 'Manifest Lines'
-    
-    # schedules_id = fields.Char(string='Nama Kegiatan')
-    schedules_id = fields.Many2one('res.partner', string='Nama Hotel', domain=[('hotels', '=', True)])
-    schedule_id = fields.Many2one('paket.perjalanan', string='Hotel Line')
-    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
-    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
-    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
-    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
-    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
-    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
-    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
-    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
-    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
-    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
-    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
-    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
-    tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
