@@ -115,15 +115,15 @@
                                 <group>
                                     <field name="hpp_line" mode="tree,kanban" nolabel="1">
                                         <tree string = "HPP Lines" editable="top">
-                                            <field name="barang_id" />
+                                            <field name="hpp_barang" />
                                             <field name="hpp_qty" />
                                             <field name="hpp_unit" />
                                             <field name="hpp_price" />
                                             <field name="hpp_subtotal" />
                                         </tree>
-                                        <form string="Airline_String">
+                                        <form string="HPP_String">
                                             <group>
-                                                <field name="barang_id" />
+                                                <field name="hpp_barang" />
                                                 <field name="hpp_qty" />
                                                 <field name="hpp_unit" />
                                                 <field name="hpp_price" />
