@@ -20,7 +20,7 @@ class PaketPerjalanan(models.Model):
     hpp_line = fields.One2many('hpp.line', 'hpp_id', string='HPP Lines')  
     # total_cost = fields.Float(string='Total Cost: ', store=True)
     
-    ref = fields.Char(string='Referensi', readonly=True, default='-')
+    name = fields.Char(string='Referensi', readonly=True, default='-')
     
     @api.onchange('bom_id')
     def _onchange_bom_id(self):
@@ -45,7 +45,7 @@ class PaketPerjalanan(models.Model):
     
     @api.model
     def create(self, vals):
-        vals['ref'] = self.env['ir.sequence'].next_by_code('paket.perjalanan')
+        vals['name'] = self.env['ir.sequence'].next_by_code('paket.perjalanan')
         return super(PaketPerjalanan, self).create(vals)
     
     def action_confirm(self):
