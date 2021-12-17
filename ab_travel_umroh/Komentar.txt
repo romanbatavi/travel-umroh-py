@@ -8,9 +8,9 @@
 7.format css dalam xml sebaiknya dihapus (Done)
 8.tidak mendifinisikan ulang action xml yang sama (Postponed)
 ====================YANG KURANG================
-1.pakettravel diatas belum berubah
-2.3 onchange belum dibuat
-3.belum ada function untuk kondisi state
+--> pakettravel diatas belum berubah
+--> 3 onchange belum dibuat
+--> belum ada function untuk kondisi state
 
 
 
@@ -23,3 +23,8 @@ kill -9
 ===============================================
 # schedules_id = fields.Many2one('res.partner', string='Nama Hotel', domain=[('hotels', '=', True)])
 
+    # @api.onchange('bom_id')
+    # def _onchange_bom_id(self):
+    #     print('===============================================================',self.bom_id)
+        # for hote in self.hotels_line:
+        #     print('===============================================================',hote.hotels_id.city)

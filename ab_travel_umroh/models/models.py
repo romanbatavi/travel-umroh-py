@@ -16,8 +16,8 @@ class PaketPerjalanan(models.Model):
     airlines_line = fields.One2many('airline.line', 'airline_id', string='Airline Lines') 
     state = fields.Selection([('draft', 'Draft'), ('confirm', 'Confirm'), ('cancel', 'Cancelled'), ('done', 'Done')], string='Status', readonly=True, default='draft')
     schedules_line = fields.One2many('schedule.line', 'schedule_id', string='Schedule Lines')
-    
-    hpp_line = fields.One2many('hpp.line', 'hpp_id', string='HPP Lines')  
+    hpp_line = fields.One2many('hpp.line', 'hpp_id', string='HPP Lines') 
+    manifest_line = fields.One2many('manifest.line', 'manifest_id', string='Manifest')
     # total_cost = fields.Float(string='Total Cost: ', store=True)
     
     name = fields.Char(string='Referensi', readonly=True, default='-')
@@ -59,12 +59,6 @@ class PaketPerjalanan(models.Model):
         
     def action_cancel(self):
         self.write({'state': 'cancel'})
-        
-    # @api.onchange('bom_id')
-    # def _onchange_bom_id(self):
-    #     print('===============================================================',self.bom_id)
-        # for hote in self.hotels_line:
-        #     print('===============================================================',hote.hotels_id.city)
     
 class HotelLines(models.Model):
     _name = 'hotel.line'
@@ -94,6 +88,26 @@ class ScheduleLine(models.Model):
     schedule_id = fields.Many2one('paket.perjalanan', string='Hotel Line')
     tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
     
+class ManifestLine(models.Model):
+    _name = 'manifest.line'
+    _description = 'Manifest Lines'
+    
+    manifest_id = fields.Many2one('paket.perjalanan', string='Manifest')
+    title = fields.Char(string='Title')
+    nama_panjang = fields.Char(string='Nama Panjang')
+    jenis_kelamin = fields.Char(string='Jenis Kelamin')
+    no_ktp = fields.Integer(string='No.KTP')
+    no_passpor = fields.Integer(string='No.Passpor')
+    tanggal_lahir = fields.Date(string='Tanggal Lahir')
+    tempat_lahir = fields.Char(string='Tempat Lahir')
+    tanggal_berlaku = fields.Date(string='Tanggal Berlaku')
+    tanggal_expired = fields.Date(string='Tanggal Expired')
+    Imigrasi = fields.Char(string='Imigrasi')
+    tipe_kamar = fields.Char(string='Tipe Kamar')
+    umur = fields.Integer(string='Umur')
+    mahram = fields.Char(string='Mahram')
+    agent = fields.Char(string='Agent')
+        
 class HppLines(models.Model):
     _name = 'hpp.line'
     _description = 'HPP Lines'
@@ -105,7 +119,6 @@ class HppLines(models.Model):
     hpp_unit = fields.Many2one('uom.uom', string='Unit(s)')
     hpp_price = fields.Float(string='Unit Price')
     hpp_subtotal = fields.Float(string='Sub Total')
-    
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
     
