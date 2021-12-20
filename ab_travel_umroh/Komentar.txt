@@ -51,3 +51,5 @@ kill -9
                         </group>
                     </page>
                 </notebook> -->
+
+                            <field name="context">{'search_default_customer': 1,'res_partner_search_mode': 'customer', 'default_is_company': True, 'default_customer_rank': 1}</field>

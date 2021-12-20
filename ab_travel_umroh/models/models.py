@@ -1,4 +1,5 @@
 
+from typing_extensions import Required
 from odoo import api, fields, models         
 class PaketPerjalanan(models.Model):
     _name = 'paket.perjalanan'
@@ -14,8 +15,8 @@ class PaketPerjalanan(models.Model):
     
     hotels_line = fields.One2many('hotel.line', 'hotel_id', string='Hotel Lines')
     airlines_line = fields.One2many('airline.line', 'airline_id', string='Airline Lines') 
-    state = fields.Selection([('draft', 'Draft'), ('confirm', 'Confirm'), ('cancel', 'Cancelled'), ('done', 'Done')], string='Status', readonly=True, default='draft')
     schedules_line = fields.One2many('schedule.line', 'schedule_id', string='Schedule Lines')
+    state = fields.Selection([('draft', 'Draft'), ('confirm', 'Confirm'), ('cancel', 'Cancelled'), ('done', 'Done')], string='Status', readonly=True, default='draft')
     hpp_line = fields.One2many('hpp.line', 'hpp_id', string='HPP Lines') 
     manifest_line = fields.One2many('manifest.line', 'manifest_id', string='Manifest')
     # total_cost = fields.Float(string='Total Cost: ', store=True)
@@ -90,25 +91,35 @@ class ScheduleLine(models.Model):
     
 class ManifestLine(models.Model):
     _name = 'manifest.line'
-    _description = 'Manifest Lines'
+    _description = 'Manifest Line'
     
     manifest_id = fields.Many2one('paket.perjalanan', string='Manifest')
-    anggota_id = fields.Many2many('sale.order', string='Manifest')
+    anggota_id = fields.Many2one('sale.order', string='Manifest')
     nama_jamaah_id = fields.Many2one('res.partner', string='Nama Jamaah')
-    title = fields.Char(string='Title', related='nama_jamaah_id.title.name')
-    nama_passpor = fields.Char(string='Nama Panjang')
+    title = fields.Char(string='Title', Required=True, related='nama_jamaah_id.title.name')
+    nama_passpor = fields.Char(string='Nama Passpor', related='nama_jamaah_id.nama_passpor')
     jenis_kelamin = fields.Char(string='Jenis Kelamin')
-    no_ktp = fields.Integer(string='No.KTP')
-    no_passpor = fields.Integer(string='No.Passpor')
-    tanggal_lahir = fields.Date(string='Tanggal Lahir')
-    tempat_lahir = fields.Char(string='Tempat Lahir')
-    tanggal_berlaku = fields.Date(string='Tanggal Berlaku')
-    tanggal_expired = fields.Date(string='Tanggal Expired')
-    Imigrasi = fields.Char(string='Imigrasi')
-    tipe_kamar = fields.Char(string='Tipe Kamar')
+    no_ktp = fields.Char(string='No.KTP', related='nama_jamaah_id.ktp')
+    passpor = fields.Integer(string='No.Passpor', related='nama_jamaah_id.no_passpor')
+    tanggal_lahir = fields.Date(string='Tanggal Lahir', related='nama_jamaah_id.tanggal_lahir')
+    tempat_lahir = fields.Char(string='Tempat Lahir', related='nama_jamaah_id.tempat_lahir')
+    tanggal_berlaku = fields.Date(string='Tanggal Berlaku', related='nama_jamaah_id.tanggal_berlaku')
+    tanggal_expired = fields.Date(string='Tanggal Expired', related='nama_jamaah_id.tanggal_habis')
+    imigrasi = fields.Char(string='Imigrasi', related='nama_jamaah_id.imigrasi')
+    tipe_kamar = fields.Selection([
+        ('double', 'Double'), 
+        ('triple', 'Triple'), 
+        ('quad', 'Quad')], 
+        string='Tipe Kamar', default='quad', Required=True)
     umur = fields.Integer(string='Umur')
-    mahram = fields.Char(string='Mahram')
+    mahram = fields.Many2one('res.partner', string='Mahram')
     agent = fields.Char(string='Agent')
+    notes = fields.Char(string='Notes')
+    
+    gambar_passpor = fields.Image(string="Scan Passpor")
+    gambar_ktp = fields.Image(string="Scan KTP")
+    gambar_bukuk_nikah = fields.Image(string="Scan Buku Nikah")
+    gambar_kartu_keluarga = fields.Image(string="Scan Kartu Keluarga")
         
 class HppLines(models.Model):
     _name = 'hpp.line'
@@ -125,6 +136,5 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
     
     paket_perjalanan_id = fields.Many2one('paket.perjalanan', string='Paket Perjalanan')
-    manifest_lines = fields.One2many('manifest.line', 'anggota_id', string='Manifest Line')
-    
+    form_manifest_line = fields.One2many('manifest.line', 'anggota_id', string='Passport Line')
     

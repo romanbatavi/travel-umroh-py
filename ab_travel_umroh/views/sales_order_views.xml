@@ -9,6 +9,56 @@
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="paket_perjalanan_id"/>
                 </xpath>
+                <notebook position="inside">
+                    <page string="Manifest">
+                        <group>
+                            <field name="form_manifest_line" mode="tree,kanban" nolabel= "1">
+                                <tree string="manifest Lines">
+                                    <field name="title" />
+                                    <field name="nama_passpor" />
+                                    <field name="jenis_kelamin" />
+                                    <field name="no_ktp" />
+                                    <field name="passpor" />
+                                    <field name="tanggal_lahir" />
+                                    <field name="tempat_lahir" />
+                                    <field name="tanggal_berlaku" />
+                                    <field name="tanggal_expired" />
+                                    <field name="imigrasi" />
+                                    <field name="tipe_kamar" />
+                                    <field name="umur" />
+                                    <field name="mahram" />
+                                    <field name="agent" />
+                                </tree>
+                                <form string="manifest Lines">
+                                    <group string="Personal" col="4">
+                                        <field name="title" />
+                                        <field name="no_ktp" />
+                                        <field name="nama_jamaah_id" />
+                                        <field name="mahram" />
+                                        <field name="tipe_kamar" />
+                                        <field name="umur" />
+                                        <field name="tanggal_lahir" />
+                                        <field name="tempat_lahir" />
+                                    </group>
+                                    <group string="Passport" col="4">
+                                        <field name="passpor" />
+                                        <field name="nama_passpor" />
+                                        <field name="tanggal_berlaku" />
+                                        <field name="tanggal_expired" />
+                                        <field name="imigrasi" />
+                                        <field name="notes" />
+                                    </group>
+                                    <group string="Scan Document" col="4">
+                                        <field name="gambar_passpor" widget="image"/>
+                                        <field name="gambar_ktp" widget="image"/>
+                                        <field name="gambar_bukuk_nikah" widget="image"/>
+                                        <field name="gambar_kartu_keluarga" widget="image"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
             </field>
         </record>
 
