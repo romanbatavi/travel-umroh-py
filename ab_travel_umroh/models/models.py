@@ -16,7 +16,11 @@ class PaketPerjalanan(models.Model):
     hotels_line = fields.One2many('hotel.line', 'hotel_id', string='Hotel Lines')
     airlines_line = fields.One2many('airline.line', 'airline_id', string='Airline Lines') 
     schedules_line = fields.One2many('schedule.line', 'schedule_id', string='Schedule Lines')
-    state = fields.Selection([('draft', 'Draft'), ('confirm', 'Confirm'), ('cancel', 'Cancelled'), ('done', 'Done')], string='Status', readonly=True, default='draft')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('confirm', 'Confirm'),
+        ('done', 'Done')],
+        string='Status', readonly=True, default='draft')
     hpp_line = fields.One2many('hpp.line', 'hpp_id', string='HPP Lines') 
     manifest_line = fields.One2many('manifest.line', 'manifest_id', string='Manifest')
     # total_cost = fields.Float(string='Total Cost: ', store=True)
@@ -49,18 +53,14 @@ class PaketPerjalanan(models.Model):
         vals['name'] = self.env['ir.sequence'].next_by_code('paket.perjalanan')
         return super(PaketPerjalanan, self).create(vals)
     
-    def action_confirm(self):
-        self.write({'state': 'confirm'})
-      
-    def action_done(self):
-        self.write({'state': 'done'})
-      
     def action_draft(self):
         self.write({'state': 'draft'})
         
-    def action_cancel(self):
-        self.write({'state': 'cancel'})
-    
+    def action_confirm(self):
+        self.write({'state': 'confirm'})
+        
+    def action_done(self):
+        self.write({'state': 'done'})
 class HotelLines(models.Model):
     _name = 'hotel.line'
     _description = 'Hotel Lines'
@@ -98,9 +98,12 @@ class ManifestLine(models.Model):
     nama_jamaah_id = fields.Many2one('res.partner', string='Nama Jamaah')
     title = fields.Char(string='Title', Required=True, related='nama_jamaah_id.title.name')
     nama_passpor = fields.Char(string='Nama Passpor', related='nama_jamaah_id.nama_passpor')
-    jenis_kelamin = fields.Char(string='Jenis Kelamin')
+    jenis_kelamin = fields.Selection([
+        ('laki', 'Laki-Laki'), 
+        ('perempuan', 'Perempuan')], 
+        string='Jenis Kelamin', help='Gender')
     no_ktp = fields.Char(string='No.KTP', related='nama_jamaah_id.ktp')
-    passpor = fields.Integer(string='No.Passpor', related='nama_jamaah_id.no_passpor')
+    passpor = fields.Char(string='No.Passpor', related='nama_jamaah_id.no_passpor')
     tanggal_lahir = fields.Date(string='Tanggal Lahir', related='nama_jamaah_id.tanggal_lahir')
     tempat_lahir = fields.Char(string='Tempat Lahir', related='nama_jamaah_id.tempat_lahir')
     tanggal_berlaku = fields.Date(string='Tanggal Berlaku', related='nama_jamaah_id.tanggal_berlaku')
@@ -116,10 +119,10 @@ class ManifestLine(models.Model):
     agent = fields.Char(string='Agent')
     notes = fields.Char(string='Notes')
     
-    gambar_passpor = fields.Image(string="Scan Passpor")
-    gambar_ktp = fields.Image(string="Scan KTP")
-    gambar_bukuk_nikah = fields.Image(string="Scan Buku Nikah")
-    gambar_kartu_keluarga = fields.Image(string="Scan Kartu Keluarga")
+    gambar_passpor = fields.Image(string="Scan Passpor", related='nama_jamaah_id.gambar_passpor')
+    gambar_ktp = fields.Image(string="Scan KTP", related='nama_jamaah_id.gambar_ktp')
+    gambar_bukuk_nikah = fields.Image(string="Scan Buku Nikah", related='nama_jamaah_id.gambar_bukuk_nikah')
+    gambar_kartu_keluarga = fields.Image(string="Scan Kartu Keluarga", related='nama_jamaah_id.gambar_kartu_keluarga')
         
 class HppLines(models.Model):
     _name = 'hpp.line'

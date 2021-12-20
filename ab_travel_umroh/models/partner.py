@@ -47,7 +47,7 @@ class Partner(models.Model):
         string='Ukuran Baju', help='Ukuran Baju')
     
     # PASSPOR INFORMATION
-    no_passpor = fields.Integer(string='No.Passpor')
+    no_passpor = fields.Char(string='No.Passpor')
     tanggal_berlaku = fields.Date(string='Tanggal Berlaku')
     imigrasi = fields.Char(string='Imigrasi')
     nama_passpor = fields.Char(string='Nama Passpor')

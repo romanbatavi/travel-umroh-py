@@ -12,6 +12,7 @@
 --> pakettravel diatas belum berubah
 --> 3 onchange belum dibuat
 --> belum ada function untuk kondisi state
+--> relate jenis kelamin
 
 
 

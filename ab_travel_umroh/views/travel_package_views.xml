@@ -22,10 +22,9 @@
             <field name="arch" type="xml">
                 <form string="">
                     <header>
-                        <button id="button_draft" name="action_draft" string="Draft" states="done,confirm,cancel" class="btn-primary" type="object"/>
-                        <button id="button_confirm" name="action_confirm" string="Confirm" states="draft,done,cancel" class="btn-primary" type="object"/>
-                        <button id="button_done" name="action_done" string="Done" states="draft,confirm,cancel" class="btn-primary" type="object"/>
-                        <button id="button_cancel" name="action_cancel" string="Cancel" states="draft,done,confirm" type="object"/>
+                        <button id="button_confirm" name="action_confirm" string="Confirm" states="draft" class="btn-primary" type="object"/>
+                        <button id="button_draft" name="action_draft" string="Draft" states="confirm" class="btn-primary" type="object"/>
+                        <button id="button_done" name="action_done" string="Done" states="confirm" class="btn-primary" type="object"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done" />
                     </header>
                     <sheet>
