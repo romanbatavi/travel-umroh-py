@@ -23,7 +23,7 @@ class PaketPerjalanan(models.Model):
         string='Status', readonly=True, default='draft')
     hpp_line = fields.One2many('hpp.line', 'hpp_id', string='HPP Lines') 
     manifest_line = fields.One2many('manifest.line', 'manifest_id', string='Manifest')
-    # total_cost = fields.Float(string='Total Cost: ', store=True)
+    total_cost = fields.Float(string='Total Cost: ', store=True)
     
     name = fields.Char(string='Referensi', readonly=True, default='-')
     
@@ -31,22 +31,21 @@ class PaketPerjalanan(models.Model):
     def _onchange_bom_id(self):
         for rec in self:
             lines = [(5, 0, 0)]
-            # total = 0
+            total = 0
             print("self.bom_id", self.bom_id.bom_ids.bom_line_ids)
             for line in self.bom_id.bom_ids.bom_line_ids:
-                # total += line.product_qty * line.product_id.standard_price
+                total += line.product_qty * line.product_id.standard_price
                 vals = {
                     'barang_id': line.id,
                     'hpp_barang': line.display_name,
                     'hpp_qty': line.product_qty,
                     'hpp_unit': line.product_uom_id.id,
                     'hpp_price': line.product_id.standard_price,
-                    'hpp_subtotal': line.product_id.standard_price,
                 }
                 lines.append((0, 0, vals))
             print("lines", lines)
             rec.hpp_line = lines
-            # rec.total_cost = total
+            rec.total_cost = total
     
     @api.model
     def create(self, vals):
@@ -128,13 +127,21 @@ class HppLines(models.Model):
     _name = 'hpp.line'
     _description = 'HPP Lines'
     
+    @api.depends('hpp_qty','hpp_price')
+    def _compute_hpp_sub_total(self):
+        for subtot in self:
+            subtot.hpp_sub_total = 0
+            if subtot.hpp_qty and subtot.hpp_price:
+                subtot.hpp_sub_total = subtot.hpp_qty * subtot.hpp_price
+    
     hpp_id = fields.Many2one('paket.perjalanan', string='HPP ID')
     barang_id = fields.Many2one('mrp.bom', string='Barang')
     hpp_barang = fields.Char(string='Nama Barang')
     hpp_qty = fields.Integer(string='Quantity')
     hpp_unit = fields.Many2one('uom.uom', string='Unit(s)')
     hpp_price = fields.Float(string='Unit Price')
-    hpp_subtotal = fields.Float(string='Sub Total')
+    hpp_sub_total = fields.Float(compute='_compute_hpp_sub_total', string='Sub Total', readonly=True)
+    
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
     

@@ -13,6 +13,7 @@
 --> 3 onchange belum dibuat
 --> belum ada function untuk kondisi state
 --> relate jenis kelamin
+--> total cost belum compute dan belum visible
 
 
 
@@ -54,3 +55,14 @@ kill -9
                 </notebook> -->
 
                             <field name="context">{'search_default_customer': 1,'res_partner_search_mode': 'customer', 'default_is_company': True, 'default_customer_rank': 1}</field>
+
+
+                            <group>
+                                        <div class="oe_title">
+                                            <group>
+                                                <hr />
+                                                <field name="is_visible" invisible="1" />
+                                                <field name="total_cost" string="Total cost: " force_save="True" />
+                                            </group>
+                                        </div>
+                                    </group>

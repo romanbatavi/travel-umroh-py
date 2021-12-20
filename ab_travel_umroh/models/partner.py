@@ -46,6 +46,13 @@ class Partner(models.Model):
         ('4l', '4L')], 
         string='Ukuran Baju', help='Ukuran Baju')
     
+    #TRIGGER UMUR UNTUK SALE ORDER
+    umur = fields.Char(compute='_compute_umur', string='Umur')
+    
+    @api.depends('tanggal_lahir')
+    def _compute_umur(self):
+        today_date = date.today()
+    
     # PASSPOR INFORMATION
     no_passpor = fields.Char(string='No.Passpor')
     tanggal_berlaku = fields.Date(string='Tanggal Berlaku')
