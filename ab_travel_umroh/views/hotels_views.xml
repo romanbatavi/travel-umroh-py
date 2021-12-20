@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <!-- SUMBER ERROR -->
+        <!-- HOTELS FILTER -->
         <record id="hotels_res_patner_view_search" model="ir.ui.view">
             <field name="name">hotels.res.partner.view.search</field>
             <field name="model">res.partner</field>

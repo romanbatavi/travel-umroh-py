@@ -115,7 +115,7 @@
                                     <field name="manifest_line" mode="tree,kanban" nolabel="1">
                                         <tree string = "Manifest Lines" editable="top">
                                             <field name="title" />
-                                            <field name="nama_panjang" />
+                                            <field name="nama_passpor" />
                                             <field name="jenis_kelamin" />
                                             <field name="no_ktp" />
                                             <field name="no_passpor" />
@@ -132,7 +132,7 @@
                                         <form string="Manifest String">
                                             <group col="4">
                                                 <field name="title" />
-                                                <field name="nama_panjang" />
+                                                <field name="nama_passpor" />
                                                 <field name="jenis_kelamin" />
                                                 <field name="no_ktp" />
                                                 <field name="no_passpor" />

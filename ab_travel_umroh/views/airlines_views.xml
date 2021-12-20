@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <!-- SUMBER ERROR -->
+        <!-- AIRLINES FILTER -->
         <record id="airlines_res_patner_view_search" model="ir.ui.view">
             <field name="name">airlines.res.partner.view.search</field>
             <field name="model">res.partner</field>

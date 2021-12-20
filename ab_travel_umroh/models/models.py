@@ -93,8 +93,10 @@ class ManifestLine(models.Model):
     _description = 'Manifest Lines'
     
     manifest_id = fields.Many2one('paket.perjalanan', string='Manifest')
-    title = fields.Char(string='Title')
-    nama_panjang = fields.Char(string='Nama Panjang')
+    anggota_id = fields.Many2many('sale.order', string='Manifest')
+    nama_jamaah_id = fields.Many2one('res.partner', string='Nama Jamaah')
+    title = fields.Char(string='Title', related='nama_jamaah_id.title.name')
+    nama_passpor = fields.Char(string='Nama Panjang')
     jenis_kelamin = fields.Char(string='Jenis Kelamin')
     no_ktp = fields.Integer(string='No.KTP')
     no_passpor = fields.Integer(string='No.Passpor')
@@ -123,4 +125,6 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
     
     paket_perjalanan_id = fields.Many2one('paket.perjalanan', string='Paket Perjalanan')
+    manifest_lines = fields.One2many('manifest.line', 'anggota_id', string='Manifest Line')
+    
     
