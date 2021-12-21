@@ -17,8 +17,11 @@ class PaketPerjalanan(models.Model):
     airline_line = fields.One2many('airline.line', 'paket_id', string='Airline Line') 
     schedule_line = fields.One2many('schedule.line', 'paket_id', string='Schedule Line')
     hpp_line = fields.One2many('hpp.line', 'paket_id', string='HPP Line') 
-    manifest_line = fields.One2many('manifest.line', 'paket_id', string='Manifest Line')
+    manifest_line = fields.One2many('manifest.line', 'paket_id', string='Manifest Line', readonly=True)
+    name = fields.Char(string='Referensi', readonly=True, default='-')
+    total_cost = fields.Float(compute='_compute_total_cost', string='Total', readonly=True)
     
+    # ONCHANGE TOTAL_COST
     @api.depends('total_cost')
     def _compute_total_cost(self):
         for total in self:
@@ -26,28 +29,22 @@ class PaketPerjalanan(models.Model):
             for i in total.hpp_line:
                 total_cost += i.hpp_sub_total
     
-    total_cost = fields.Float(compute='_compute_total_cost', string='Total', readonly=True)
-    
-    #REF
-    name = fields.Char(string='Referensi', readonly=True, default='-')
-    
+    #ONCHANGE HPP
     @api.onchange('bom_id')
     def _onchange_bom_id(self):
         for rec in self:
             lines = [(5, 0, 0)]
             total = 0
-            print("self.bom_id", self.bom_id.bom_ids.bom_line_ids)
             for line in self.bom_id.bom_ids.bom_line_ids:
                 total += line.product_qty * line.product_id.standard_price
                 vals = {
-                    'barang_id': line.id,
+                    'mrp_id': line.id,
                     'hpp_barang': line.display_name,
                     'hpp_qty': line.product_qty,
-                    'hpp_unit': line.product_uom_id.id,
+                    'uom_id': line.product_uom_id.id,
                     'hpp_price': line.product_id.standard_price,
                 }
                 lines.append((0, 0, vals))
-            print("lines", lines)
             rec.hpp_line = lines
             rec.total_cost = total
     
@@ -105,7 +102,7 @@ class ManifestLine(models.Model):
     
     paket_id = fields.Many2one('paket.perjalanan', string='Manifest')
     sale_id = fields.Many2one('sale.order', string='Manifest')
-    partner_id = fields.Many2one('res.partner', string='Nama Jamaah')
+    partner_id = fields.Many2one('res.partner', 'name', delegate=True)
     title = fields.Char(string='Title', Required=True, related='partner_id.title.name')
     nama_passpor = fields.Char(string='Nama Passpor', related='partner_id.nama_passpor')
     jenis_kelamin = fields.Selection([
@@ -138,21 +135,22 @@ class HppLine(models.Model):
     _name = 'hpp.line'
     _description = 'HPP Line'
     
+    
+    paket_id = fields.Many2one('paket.perjalanan', string='HPP ID')
+    mrp_id = fields.Many2one('mrp.bom', string='Barang')
+    hpp_barang = fields.Char(string='Nama Barang')
+    hpp_qty = fields.Float(string='Quantity')
+    uom_id = fields.Many2one('uom.uom', string='Unit(s)')
+    hpp_price = fields.Float(string='Unit Price')
+    hpp_sub_total = fields.Float(compute='_compute_hpp_sub_total', string='Sub Total', readonly=True)
+    #FUNCTION QUANTITY * PRICE
     @api.depends('hpp_qty','hpp_price')
     def _compute_hpp_sub_total(self):
         for subtot in self:
             subtot.hpp_sub_total = 0
             if subtot.hpp_qty and subtot.hpp_price:
                 subtot.hpp_sub_total = subtot.hpp_qty * subtot.hpp_price
-    
-    paket_id = fields.Many2one('paket.perjalanan', string='HPP ID')
-    barang_id = fields.Many2one('mrp.bom', string='Barang')
-    hpp_barang = fields.Char(string='Nama Barang')
-    hpp_qty = fields.Integer(string='Quantity')
-    hpp_unit = fields.Many2one('uom.uom', string='Unit(s)')
-    hpp_price = fields.Float(string='Unit Price')
-    hpp_sub_total = fields.Float(compute='_compute_hpp_sub_total', string='Sub Total', readonly=True)
-    
+                
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
     

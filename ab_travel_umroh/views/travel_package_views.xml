@@ -160,7 +160,7 @@
                                         <tree string = "HPP Lines" editable="top">
                                             <field name="hpp_barang" />
                                             <field name="hpp_qty" />
-                                            <field name="hpp_unit" />
+                                            <field name="uom_id" />
                                             <field name="hpp_price" />
                                             <field name="hpp_sub_total" />
                                         </tree>
@@ -168,7 +168,7 @@
                                 </group>
                                 <div class="oe_title float-right">
                                     <group>
-                                        <field name="total_cost" string="Total cost: " force_save="True" />
+                                        <field name="total_cost" string="Total cost: "/>
                                     </group>
                                 </div>
                             </page>

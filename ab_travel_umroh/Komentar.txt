@@ -32,7 +32,7 @@ kill -9
         # for hote in self.hotels_line:
         #     print('===============================================================',hote.hotels_id.city)
 
-
+===========================================================================================
 <!-- <notebook position="inside">
                     <page string="Manifest">
                         <group>
@@ -55,20 +55,10 @@ kill -9
                 </notebook> -->
 
                             <field name="context">{'search_default_customer': 1,'res_partner_search_mode': 'customer', 'default_is_company': True, 'default_customer_rank': 1}</field>
+===========================================================================
 
 
-                            <group>
-                                        <div class="oe_title">
-                                            <group>
-                                                <hr />
-                                                <field name="is_visible" invisible="1" />
-                                                <field name="total_cost" string="Total cost: " force_save="True" />
-                                            </group>
-                                        </div>
-                                    </group>
-
-
-
+===========================================================================
 from typing_extensions import Required
 from odoo import api, fields, models         
 class PaketPerjalanan(models.Model):
@@ -225,4 +215,13 @@ class SaleOrder(models.Model):
     
     paket_perjalanan_id = fields.Many2one('paket.perjalanan', string='Paket Perjalanan')
     form_manifest_line = fields.One2many('manifest.line', 'anggota_id', string='Passport Line')
-    
+=========================================================
+
+=========================================================
+  # title = fields.Selection([
+    #     ('doctor', 'Doctor'),
+    #     ('madam', 'Madam'),
+    #     ('miss', 'Miss'),
+    #     ('mister', 'Mister'),
+    #     ('professor', 'Professor')
+    # ], string='Title', Required=True, related='partner_id.title.name')
