@@ -102,7 +102,7 @@ class ManifestLine(models.Model):
     
     paket_id = fields.Many2one('paket.perjalanan', string='Manifest')
     sale_id = fields.Many2one('sale.order', string='Manifest')
-    partner_id = fields.Many2one('res.partner', 'name', delegate=True)
+    partner_id = fields.Many2one('res.partner', string='Nama Jamaah')
     title = fields.Char(string='Title', Required=True, related='partner_id.title.name')
     nama_passpor = fields.Char(string='Nama Passpor', related='partner_id.nama_passpor')
     jenis_kelamin = fields.Selection([
@@ -120,7 +120,7 @@ class ManifestLine(models.Model):
         ('double', 'Double'), 
         ('triple', 'Triple'), 
         ('quad', 'Quad')], 
-        string='Tipe Kamar', default='quad', Required=True)
+        string='Tipe Kamar', default='quad', required=True)
     umur = fields.Char(string='Umur', related='partner_id.umur')
     mahram_id = fields.Many2one('res.partner', string='Mahram')
     agent = fields.Char(string='Agent')
