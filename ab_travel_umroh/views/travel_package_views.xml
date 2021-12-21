@@ -128,7 +128,7 @@
                                             <field name="imigrasi" />
                                             <field name="tipe_kamar" />
                                             <field name="umur" />
-                                            <field name="mahram" />
+                                            <field name="partner_id" />
                                             <field name="agent" />
                                         </tree>
                                         <form string="Manifest String">
@@ -145,7 +145,7 @@
                                                 <field name="imigrasi" />
                                                 <field name="tipe_kamar" />
                                                 <field name="umur" />
-                                                <field name="mahram" />
+                                                <field name="partner_id" />
                                                 <field name="agent" />
                                             </group>
                                         </form>

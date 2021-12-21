@@ -17,7 +17,7 @@ class PaketPerjalanan(models.Model):
     airline_line = fields.One2many('airline.line', 'paket_id', string='Airline Line') 
     schedule_line = fields.One2many('schedule.line', 'paket_id', string='Schedule Line')
     hpp_line = fields.One2many('hpp.line', 'paket_id', string='HPP Line') 
-    manifest_line = fields.One2many('manifest.line', 'paket_id', string=' Line')
+    manifest_line = fields.One2many('manifest.line', 'paket_id', string='Manifest Line')
     
     @api.depends('total_cost')
     def _compute_total_cost(self):
@@ -124,8 +124,8 @@ class ManifestLine(models.Model):
         ('triple', 'Triple'), 
         ('quad', 'Quad')], 
         string='Tipe Kamar', default='quad', Required=True)
-    umur = fields.Integer(string='Umur')
-    mahram = fields.Many2one('res.partner', string='Mahram')
+    umur = fields.Char(string='Umur', related='partner_id.umur')
+    mahram_id = fields.Many2one('res.partner', string='Mahram')
     agent = fields.Char(string='Agent')
     notes = fields.Char(string='Notes')
     
@@ -134,9 +134,9 @@ class ManifestLine(models.Model):
     gambar_bukuk_nikah = fields.Image(string="Scan Buku Nikah", related='partner_id.gambar_bukuk_nikah')
     gambar_kartu_keluarga = fields.Image(string="Scan Kartu Keluarga", related='partner_id.gambar_kartu_keluarga')
         
-class HppLines(models.Model):
+class HppLine(models.Model):
     _name = 'hpp.line'
-    _description = 'HPP Lines'
+    _description = 'HPP Line'
     
     @api.depends('hpp_qty','hpp_price')
     def _compute_hpp_sub_total(self):
@@ -157,5 +157,5 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
     
     paket_id = fields.Many2one('paket.perjalanan', string='Paket Perjalanan')
-    Fmanifest_line = fields.One2many('manifest.line', 'sale_id', string='Passport Line')
+    manifest_line = fields.One2many('manifest.line', 'sale_id', string='Passport Line')
     
