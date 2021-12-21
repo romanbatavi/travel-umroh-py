@@ -52,16 +52,16 @@
                             <page string="Hotel Lines">
                                 <!-- NOTEBOOK HOTEL -->
                                 <group>
-                                    <field name="hotels_line" mode="tree,kanban" nolabel="1">
+                                    <field name="hotel_line" mode="tree,kanban" nolabel="1">
                                         <tree string = "Hotel Lines" editable="top">
-                                            <field name="hotels_id" />
+                                            <field name="partner_id" />
                                             <field name="tanggal_masuk" />
                                             <field name="tanggal_keluar" />
                                             <field name="nama_kota" />
                                         </tree>
                                         <form string="Hotel String">
                                             <group col="4">
-                                                <field name="hotels_id" />
+                                                <field name="partner_id" />
                                                 <field name="tanggal_masuk" />
                                                 <field name="tanggal_keluar" />
                                                 <field name="nama_kota" />
@@ -74,16 +74,16 @@
                             <page string="Airline Lines">
                                 <!-- NOTEBOOK AIRLINE -->
                                 <group>
-                                    <field name="airlines_line" mode="tree,kanban" nolabel="1">
+                                    <field name="airline_line" mode="tree,kanban" nolabel="1">
                                         <tree string = "Airline Lines" editable="top">
-                                            <field name="airlines_id" />
+                                            <field name="partner_id" />
                                             <field name="tanggal_berangkat" />
                                             <field name="kota_asal" />
                                             <field name="kota_tujuan" />
                                         </tree>
                                         <form string="Airline String">
                                             <group>
-                                                <field name="airlines_id" />
+                                                <field name="partner_id" />
                                                 <field name="tanggal_berangkat" />
                                                 <field name="kota_asal" />
                                                 <field name="kota_tujuan" />
@@ -96,14 +96,14 @@
                             <page string="Schedule Lines">
                                 <!-- NOTEBOOK SCHEDULE -->
                                 <group>
-                                    <field name="schedules_line" mode="tree,kanban" nolabel="1">
+                                    <field name="schedule_line" mode="tree,kanban" nolabel="1">
                                         <tree string = "Schedule Lines" editable="top">
-                                            <field name="schedules_id" />
+                                            <field name="schedule" />
                                             <field name="tanggal_kegiatan" />
                                         </tree>
                                         <form string="Schedule_String">
                                             <group>
-                                                <field name="schedules_id" />
+                                                <field name="schedule" />
                                                 <field name="tanggal_kegiatan" />
                                             </group>
                                         </form>

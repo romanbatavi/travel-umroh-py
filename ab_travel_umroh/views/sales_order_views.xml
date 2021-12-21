@@ -7,13 +7,13 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="after">
-                    <field name="paket_perjalanan_id"/>
+                    <field name="paket_id"/>
                 </xpath>
                 <notebook position="inside">
                     <page string="Manifest">
                         <group>
-                            <field name="form_manifest_line" mode="tree,kanban" nolabel= "1">
-                                <tree string="manifest Lines">
+                            <field name="manifest_line" mode="tree,kanban" nolabel= "1">
+                                <tree string="manifest Line">
                                     <field name="title" />
                                     <field name="nama_passpor" />
                                     <field name="jenis_kelamin" />
@@ -29,11 +29,11 @@
                                     <field name="mahram" />
                                     <field name="agent" />
                                 </tree>
-                                <form string="manifest Lines">
+                                <form string="manifest Line">
                                     <group string="Personal" col="4">
                                         <field name="title" />
                                         <field name="no_ktp" />
-                                        <field name="nama_jamaah_id" />
+                                        <field name="partner_id" />
                                         <field name="mahram" />
                                         <field name="tipe_kamar" />
                                         <field name="umur" />

@@ -13,18 +13,22 @@ class PaketPerjalanan(models.Model):
     remaining_quota = fields.Integer(string="Remaining Quota", related='quota')
     quota_progress = fields.Integer(string="Quota Progress")
     
-    hotels_line = fields.One2many('hotel.line', 'hotel_id', string='Hotel Lines')
-    airlines_line = fields.One2many('airline.line', 'airline_id', string='Airline Lines') 
-    schedules_line = fields.One2many('schedule.line', 'schedule_id', string='Schedule Lines')
-    state = fields.Selection([
-        ('draft', 'Draft'),
-        ('confirm', 'Confirm'),
-        ('done', 'Done')],
-        string='Status', readonly=True, default='draft')
-    hpp_line = fields.One2many('hpp.line', 'hpp_id', string='HPP Lines') 
-    manifest_line = fields.One2many('manifest.line', 'manifest_id', string='Manifest')
-    total_cost = fields.Float(string='Total Cost: ', store=True)
+    hotel_line = fields.One2many('hotel.line', 'paket_id', string='Hotel Line')
+    airline_line = fields.One2many('airline.line', 'paket_id', string='Airline Line') 
+    schedule_line = fields.One2many('schedule.line', 'paket_id', string='Schedule Line')
+    hpp_line = fields.One2many('hpp.line', 'paket_id', string='HPP Line') 
+    manifest_line = fields.One2many('manifest.line', 'paket_id', string=' Line')
     
+    @api.depends('total_cost')
+    def _compute_total_cost(self):
+        for total in self:
+            total_cost = 0
+            for i in total.hpp_line:
+                total_cost += i.hpp_sub_total
+    
+    total_cost = fields.Float(compute='_compute_total_cost', string='Total', readonly=True)
+    
+    #REF
     name = fields.Char(string='Referensi', readonly=True, default='-')
     
     @api.onchange('bom_id')
@@ -47,6 +51,12 @@ class PaketPerjalanan(models.Model):
             rec.hpp_line = lines
             rec.total_cost = total
     
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('confirm', 'Confirm'),
+        ('done', 'Done')],
+        string='Status', readonly=True, default='draft')
+    
     @api.model
     def create(self, vals):
         vals['name'] = self.env['ir.sequence'].next_by_code('paket.perjalanan')
@@ -60,54 +70,55 @@ class PaketPerjalanan(models.Model):
         
     def action_done(self):
         self.write({'state': 'done'})
-class HotelLines(models.Model):
+
+class HotelLine(models.Model):
     _name = 'hotel.line'
-    _description = 'Hotel Lines'
+    _description = 'Hotel Line'
     
-    hotels_id = fields.Many2one('res.partner', string='Nama Hotel', domain=[('hotels', '=', True)])
-    hotel_id = fields.Many2one('paket.perjalanan', string='Hotel Line')
-    nama_kota = fields.Char(string='Nama Kota', related='hotels_id.city', tracking=True,)
+    partner_id = fields.Many2one('res.partner', string='Nama Hotel', domain=[('hotels', '=', True)])
+    paket_id = fields.Many2one('paket.perjalanan', string='Hotel Line')
+    nama_kota = fields.Char(string='Nama Kota', related='partner_id.city', tracking=True,)
     tanggal_masuk = fields.Date(string='Tanggal Masuk')
     tanggal_keluar = fields.Date(string='Tanggal Keluar')
     
-class AirlineLines(models.Model):
+class AirlineLine(models.Model):
     _name = 'airline.line'
-    _description = 'Airline Lines'
+    _description = 'Airline Line'
     
-    airlines_id = fields.Many2one('res.partner', string='Nama Pesawat', domain=[('airlines', '=', True)])
-    airline_id = fields.Many2one('paket.perjalanan', String='Airlines Line')
+    partner_id = fields.Many2one('res.partner', string='Nama Pesawat', domain=[('airlines', '=', True)])
+    paket_id = fields.Many2one('paket.perjalanan', String='Airlines Line')
     tanggal_berangkat = fields.Date(string='Tanggal Keberangkatan')
     kota_asal = fields.Char(string='Kota Asal')
     kota_tujuan = fields.Char(string='Kota Tujuan')
     
 class ScheduleLine(models.Model):
     _name = 'schedule.line'
-    _description = 'Schedule Lines'
+    _description = 'Schedule Line'
     
-    schedules_id = fields.Char(string='Nama Kegiatan')
-    schedule_id = fields.Many2one('paket.perjalanan', string='Hotel Line')
+    schedule = fields.Char(string='Nama Kegiatan')
+    paket_id = fields.Many2one('paket.perjalanan', string='Hotel Line')
     tanggal_kegiatan = fields.Date(string='Tanggal Kegiatan')
     
 class ManifestLine(models.Model):
     _name = 'manifest.line'
     _description = 'Manifest Line'
     
-    manifest_id = fields.Many2one('paket.perjalanan', string='Manifest')
-    anggota_id = fields.Many2one('sale.order', string='Manifest')
-    nama_jamaah_id = fields.Many2one('res.partner', string='Nama Jamaah')
-    title = fields.Char(string='Title', Required=True, related='nama_jamaah_id.title.name')
-    nama_passpor = fields.Char(string='Nama Passpor', related='nama_jamaah_id.nama_passpor')
+    paket_id = fields.Many2one('paket.perjalanan', string='Manifest')
+    sale_id = fields.Many2one('sale.order', string='Manifest')
+    partner_id = fields.Many2one('res.partner', string='Nama Jamaah')
+    title = fields.Char(string='Title', Required=True, related='partner_id.title.name')
+    nama_passpor = fields.Char(string='Nama Passpor', related='partner_id.nama_passpor')
     jenis_kelamin = fields.Selection([
         ('laki', 'Laki-Laki'), 
         ('perempuan', 'Perempuan')], 
         string='Jenis Kelamin', help='Gender')
-    no_ktp = fields.Char(string='No.KTP', related='nama_jamaah_id.ktp')
-    passpor = fields.Char(string='No.Passpor', related='nama_jamaah_id.no_passpor')
-    tanggal_lahir = fields.Date(string='Tanggal Lahir', related='nama_jamaah_id.tanggal_lahir')
-    tempat_lahir = fields.Char(string='Tempat Lahir', related='nama_jamaah_id.tempat_lahir')
-    tanggal_berlaku = fields.Date(string='Tanggal Berlaku', related='nama_jamaah_id.tanggal_berlaku')
-    tanggal_expired = fields.Date(string='Tanggal Expired', related='nama_jamaah_id.tanggal_habis')
-    imigrasi = fields.Char(string='Imigrasi', related='nama_jamaah_id.imigrasi')
+    no_ktp = fields.Char(string='No.KTP', related='partner_id.ktp')
+    passpor = fields.Char(string='No.Passpor', related='partner_id.no_passpor')
+    tanggal_lahir = fields.Date(string='Tanggal Lahir', related='partner_id.tanggal_lahir')
+    tempat_lahir = fields.Char(string='Tempat Lahir', related='partner_id.tempat_lahir')
+    tanggal_berlaku = fields.Date(string='Tanggal Berlaku', related='partner_id.tanggal_berlaku')
+    tanggal_expired = fields.Date(string='Tanggal Expired', related='partner_id.tanggal_habis')
+    imigrasi = fields.Char(string='Imigrasi', related='partner_id.imigrasi')
     tipe_kamar = fields.Selection([
         ('double', 'Double'), 
         ('triple', 'Triple'), 
@@ -118,10 +129,10 @@ class ManifestLine(models.Model):
     agent = fields.Char(string='Agent')
     notes = fields.Char(string='Notes')
     
-    gambar_passpor = fields.Image(string="Scan Passpor", related='nama_jamaah_id.gambar_passpor')
-    gambar_ktp = fields.Image(string="Scan KTP", related='nama_jamaah_id.gambar_ktp')
-    gambar_bukuk_nikah = fields.Image(string="Scan Buku Nikah", related='nama_jamaah_id.gambar_bukuk_nikah')
-    gambar_kartu_keluarga = fields.Image(string="Scan Kartu Keluarga", related='nama_jamaah_id.gambar_kartu_keluarga')
+    gambar_passpor = fields.Image(string="Scan Passpor", related='partner_id.gambar_passpor')
+    gambar_ktp = fields.Image(string="Scan KTP", related='partner_id.gambar_ktp')
+    gambar_bukuk_nikah = fields.Image(string="Scan Buku Nikah", related='partner_id.gambar_bukuk_nikah')
+    gambar_kartu_keluarga = fields.Image(string="Scan Kartu Keluarga", related='partner_id.gambar_kartu_keluarga')
         
 class HppLines(models.Model):
     _name = 'hpp.line'
@@ -134,7 +145,7 @@ class HppLines(models.Model):
             if subtot.hpp_qty and subtot.hpp_price:
                 subtot.hpp_sub_total = subtot.hpp_qty * subtot.hpp_price
     
-    hpp_id = fields.Many2one('paket.perjalanan', string='HPP ID')
+    paket_id = fields.Many2one('paket.perjalanan', string='HPP ID')
     barang_id = fields.Many2one('mrp.bom', string='Barang')
     hpp_barang = fields.Char(string='Nama Barang')
     hpp_qty = fields.Integer(string='Quantity')
@@ -145,6 +156,6 @@ class HppLines(models.Model):
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
     
-    paket_perjalanan_id = fields.Many2one('paket.perjalanan', string='Paket Perjalanan')
-    form_manifest_line = fields.One2many('manifest.line', 'anggota_id', string='Passport Line')
+    paket_id = fields.Many2one('paket.perjalanan', string='Paket Perjalanan')
+    Fmanifest_line = fields.One2many('manifest.line', 'sale_id', string='Passport Line')
     
