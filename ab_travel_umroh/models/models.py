@@ -18,7 +18,7 @@ class PaketPerjalanan(models.Model):
     schedule_line = fields.One2many('schedule.line', 'paket_id', string='Schedule Line')
     hpp_line = fields.One2many('hpp.line', 'paket_id', string='HPP Line') 
     manifest_line = fields.One2many('manifest.line', 'paket_id', string='Manifest Line', readonly=True)
-    name = fields.Char(string='Referensi', readonly=True, default='-')
+    name = fields.Char(string='Referensi', default='Entahlah')
     total_cost = fields.Float(compute='_compute_total_cost', string='Total', readonly=True)
     
     # ONCHANGE TOTAL_COST
@@ -56,8 +56,9 @@ class PaketPerjalanan(models.Model):
     
     @api.model
     def create(self, vals):
-        vals['name'] = self.env['ir.sequence'].next_by_code('paket.perjalanan')
+        vals['ref'] = self.env['ir.sequence'].next_by_code('paket.perjalanan')
         return super(PaketPerjalanan, self).create(vals)
+    
     
     def action_draft(self):
         self.write({'state': 'draft'})
@@ -68,6 +69,15 @@ class PaketPerjalanan(models.Model):
     def action_done(self):
         self.write({'state': 'done'})
 
+    def name_get(self):
+        listget = []
+        for record in self:
+            name = (record.name or '')+'-'+(record.product_id.name or '')
+            print('=========================',name)
+            listget.append((record.id, name))
+        print('==========',listget)
+        return listget
+    
 class HotelLine(models.Model):
     _name = 'hotel.line'
     _description = 'Hotel Line'
@@ -124,7 +134,7 @@ class ManifestLine(models.Model):
     umur = fields.Char(string='Umur', related='partner_id.umur')
     mahram_id = fields.Many2one('res.partner', string='Mahram')
     agent = fields.Char(string='Agent')
-    notes = fields.Char(string='Notes')
+    notes = fields.Char(string='Notes') 
     
     gambar_passpor = fields.Image(string="Scan Passpor", related='partner_id.gambar_passpor')
     gambar_ktp = fields.Image(string="Scan KTP", related='partner_id.gambar_ktp')
@@ -134,7 +144,6 @@ class ManifestLine(models.Model):
 class HppLine(models.Model):
     _name = 'hpp.line'
     _description = 'HPP Line'
-    
     
     paket_id = fields.Many2one('paket.perjalanan', string='HPP ID')
     mrp_id = fields.Many2one('mrp.bom', string='Barang')

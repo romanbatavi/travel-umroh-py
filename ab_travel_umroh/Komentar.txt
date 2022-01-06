@@ -217,6 +217,15 @@ class SaleOrder(models.Model):
     form_manifest_line = fields.One2many('manifest.line', 'anggota_id', string='Passport Line')
 =========================================================
 
+  def name_get(self):
+        listget = []
+        for record in self:
+            name = (record.name or '')+'-'+(record.product_id.name or '')
+            print('=========================',name)
+            listget.append((record.id, name))
+        print('==========',listget)
+        return listget
+
 =========================================================
   # title = fields.Selection([
     #     ('doctor', 'Doctor'),
